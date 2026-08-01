@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1E1F22"
+    android:padding="16dp">
+
+    <!-- ÜST BAŞLIK VE KONTROL -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="📊 System Audit &amp; Trace Logs"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnCloseTrace"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Kapat"
+            android:textSize="12sp"
+            android:backgroundTint="#2B2D31"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- KONSOL ALANI -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#111214"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/textLogs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#949BA4"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:text="[19:40:01] [INFO] Application initialized.\n[19:40:05] [AUTH] OIDC 3-legged authorization token acquired.\n[19:40:06] [API] POST /verify — MSISDN: +905390000020\n[19:40:06] [SUCCESS] Response: 200 OK (verified: true, flow_id: 12345-ABC)\n[19:40:12] [API] POST /sessions — Quality-on-Demand requested (0.0.0.0/0)\n[19:40:12] [SUCCESS] Response: 201 Created (qosStatus: REQUESTED)\n[19:40:15] [STREAM] HLS Adaptive Bitrate Stream initialized (1080p target).\n[19:40:22] [UPLOAD] Multipart upload triggered for video.mp4 to backend pipeline...\n[19:40:23] [SUCCESS] Response: 202 Accepted — AI Container triggered successfully."/>
+    </ScrollView>
+
+</LinearLayout>

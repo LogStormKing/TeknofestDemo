@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/resultScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1F22">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ÜST ÇUBUK -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="AI Result"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/btnOpenTrace"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Trace"
+                android:textSize="11sp"
+                android:paddingHorizontal="8dp"
+                android:backgroundTint="#35373C"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp"/>
+
+            <Button
+                android:id="@+id/btnRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Yenile"
+                android:textSize="11sp"
+                android:paddingHorizontal="8dp"
+                android:backgroundTint="#5865F2"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- YÜKLEME (PROCESSING) ALANI -->
+        <TextView
+            android:id="@+id/textProcessing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏳ AI videoyu işliyor, lütfen bekleyin..."
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FEE75C"
+            android:background="#2B2D31"
+            android:padding="16dp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- SONUÇ KARTLARI (Başlangıçta Gizli) -->
+        <LinearLayout
+            android:id="@+id/resultContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- KART 1: ARAÇ BİLGİSİ -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#2B2D31">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🚗 Araç Bilgisi"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:id="@+id/textVehicleInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#B5BAC1"
+                        android:textSize="14sp"
+                        android:text="Tip: SUV\nPlaka: 34TC8532\nRenk: SİYAH\nGüven: %100"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- KART 2: TESPİTLER -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#2B2D31">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔍 Tespitler (Eylemler/Nesneler)"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:id="@+id/textDetections"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#23A55A"
+                        android:textSize="14sp"
+                        android:text="⏱️ 25.34s - EMNIYET_KEMERI_IHLALI (Güven: %95)\n⏱️ 39.01s - TEKNOCAN (Güven: %88)"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- KART 3: HAM JSON ÇIKTISI -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#2B2D31">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📄 Ham JSON Çıktısı"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:id="@+id/textRawJson"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#111214"
+                        android:textColor="#949BA4"
+                        android:padding="12dp"
+                        android:fontFamily="monospace"
+                        android:textSize="12sp"
+                        android:text="{\n  &quot;video_id&quot;: &quot;video.mp4&quot;,\n  &quot;arac_bilgisi&quot;: {\n    &quot;tip&quot;: &quot;suv&quot;,\n    &quot;plaka&quot;: &quot;34TC8532&quot;,\n    &quot;renk&quot;: &quot;siyah&quot;\n  },\n  &quot;tespitler&quot;: [\n    {\n      &quot;zaman_saniye&quot;: 25.34,\n      &quot;etiket&quot;: &quot;emniyet_kemeri_ihlali&quot;\n    }\n  ]\n}"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
