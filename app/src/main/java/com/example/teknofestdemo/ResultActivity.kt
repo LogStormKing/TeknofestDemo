@@ -1,5 +1,6 @@
 package com.example.teknofestdemo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
@@ -12,38 +13,66 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        // Ana sayfadan gelen tema bilgisini yakalıyoruz
+        // TEMA YAKALAMA VE UYGULAMA MANTIĞI
         val isDarkMode = intent.getBooleanExtra("isDarkMode", true)
+
         val resultScrollView = findViewById<ScrollView>(R.id.resultScrollView)
+        val cardVehicle = findViewById<androidx.cardview.widget.CardView>(R.id.cardVehicle)
+        val cardDetections = findViewById<androidx.cardview.widget.CardView>(R.id.cardDetections)
+        val cardJson = findViewById<androidx.cardview.widget.CardView>(R.id.cardJson)
+
+        val textAiResultTitle = findViewById<TextView>(R.id.textAiResultTitle)
+        val textVehicleTitle = findViewById<TextView>(R.id.textVehicleTitle)
+        val textDetectionsTitle = findViewById<TextView>(R.id.textDetectionsTitle)
+        val textJsonTitle = findViewById<TextView>(R.id.textJsonTitle)
+        val textVehicleInfo = findViewById<TextView>(R.id.textVehicleInfo)
 
         if (isDarkMode) {
-            resultScrollView.setBackgroundColor(android.graphics.Color.parseColor("#1E1F22"))
+            // KOYU TEMA
+            resultScrollView.setBackgroundColor(Color.parseColor("#1E1F22"))
+            val darkCard = Color.parseColor("#2B2D31")
+            cardVehicle.setCardBackgroundColor(darkCard)
+            cardDetections.setCardBackgroundColor(darkCard)
+            cardJson.setCardBackgroundColor(darkCard)
+
+            textAiResultTitle.setTextColor(Color.WHITE)
+            textVehicleTitle.setTextColor(Color.WHITE)
+            textDetectionsTitle.setTextColor(Color.WHITE)
+            textJsonTitle.setTextColor(Color.WHITE)
         } else {
-            resultScrollView.setBackgroundColor(android.graphics.Color.parseColor("#F0F2F5"))
+            // AÇIK TEMA
+            resultScrollView.setBackgroundColor(Color.parseColor("#F0F2F5"))
+            val lightCard = Color.WHITE
+            cardVehicle.setCardBackgroundColor(lightCard)
+            cardDetections.setCardBackgroundColor(lightCard)
+            cardJson.setCardBackgroundColor(lightCard)
+
+            textAiResultTitle.setTextColor(Color.BLACK)
+            textVehicleTitle.setTextColor(Color.BLACK)
+            textDetectionsTitle.setTextColor(Color.BLACK)
+            textJsonTitle.setTextColor(Color.BLACK)
+            textVehicleInfo.setTextColor(Color.parseColor("#333333")) // Açık modda gri okunsun diye
         }
 
+        // SAYFA İŞLEVLERİ
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
         val btnOpenTrace = findViewById<Button>(R.id.btnOpenTrace)
         val textProcessing = findViewById<TextView>(R.id.textProcessing)
         val resultContent = findViewById<LinearLayout>(R.id.resultContent)
 
-        // Trace butonuna basınca TraceActivity'yi açar
         btnOpenTrace.setOnClickListener {
             startActivity(android.content.Intent(this, TraceActivity::class.java))
         }
 
-        // Yenile Butonu Mantığı
         btnRefresh.setOnClickListener {
             textProcessing.text = "⏳ AI sonuçları güncelleniyor..."
             resultContent.visibility = LinearLayout.GONE
-
             textProcessing.postDelayed({
                 textProcessing.visibility = LinearLayout.GONE
                 resultContent.visibility = LinearLayout.VISIBLE
             }, 1500)
         }
 
-        // Sayfa ilk açıldığında sahte yükleme simülasyonu
         textProcessing.postDelayed({
             textProcessing.visibility = LinearLayout.GONE
             resultContent.visibility = LinearLayout.VISIBLE
