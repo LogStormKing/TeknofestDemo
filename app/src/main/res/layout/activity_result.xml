@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- ÜST ÇUBUK -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,6 +20,7 @@
             android:layout_marginBottom="16dp">
 
             <TextView
+                android:id="@+id/textAiResultTitle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -51,7 +51,6 @@
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
 
-        <!-- YÜKLEME (PROCESSING) ALANI -->
         <TextView
             android:id="@+id/textProcessing"
             android:layout_width="match_parent"
@@ -65,7 +64,6 @@
             android:gravity="center"
             android:layout_marginBottom="16dp"/>
 
-        <!-- SONUÇ KARTLARI (Başlangıçta Gizli) -->
         <LinearLayout
             android:id="@+id/resultContent"
             android:layout_width="match_parent"
@@ -73,8 +71,8 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <!-- KART 1: ARAÇ BİLGİSİ -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardVehicle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -89,6 +87,7 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/textVehicleTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🚗 Araç Bilgisi"
@@ -106,8 +105,8 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- KART 2: TESPİTLER -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardDetections"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -122,6 +121,7 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/textDetectionsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🔍 Tespitler (Eylemler/Nesneler)"
@@ -139,8 +139,8 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- KART 3: HAM JSON ÇIKTISI -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardJson"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
@@ -154,6 +154,7 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/textJsonTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="📄 Ham JSON Çıktısı"

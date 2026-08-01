@@ -1,4 +1,4 @@
-package com.example.teknofestdemo // Kendi paket adınla aynı olduğundan emin ol
+package com.example.teknofestdemo
 
 import android.content.Intent
 import android.graphics.Color
@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.MediaController
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
@@ -15,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 class HomeActivity : AppCompatActivity() {
 
     private var isQodEnabled = false
-    private var isDarkMode = true // Varsayılan Discord koyu modu
+    private var isDarkMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,71 +38,106 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        // Açık / Koyu Tema Değiştirme Mantığı
+        // Açık / Koyu Tema Mantığı (Arkaplan + Kartlar + YAZILAR)
         btnToggleTheme.setOnClickListener {
             isDarkMode = !isDarkMode
+
+            val cardVerified = findViewById<androidx.cardview.widget.CardView>(R.id.cardVerified)
+            val cardQod = findViewById<androidx.cardview.widget.CardView>(R.id.cardQod)
+            val cardVideo = findViewById<androidx.cardview.widget.CardView>(R.id.cardVideo)
+            val topBarCard = findViewById<androidx.cardview.widget.CardView>(R.id.topBarCard)
+
+            val textOpenGw = findViewById<TextView>(R.id.textOpenGw)
+            val textQodTitle = findViewById<TextView>(R.id.textQodTitle)
+            val textVideoTitle = findViewById<TextView>(R.id.textVideoTitle)
+
             if (isDarkMode) {
-                // Koyu Tema (Discord Grisi)
+                // KOYU TEMA
                 mainScrollView.setBackgroundColor(Color.parseColor("#1E1F22"))
+                val darkCard = Color.parseColor("#2B2D31")
+                topBarCard.setCardBackgroundColor(darkCard)
+                cardVerified.setCardBackgroundColor(darkCard)
+                cardQod.setCardBackgroundColor(darkCard)
+                cardVideo.setCardBackgroundColor(darkCard)
+
+                // Yazılar Beyaz
+                textOpenGw.setTextColor(Color.WHITE)
+                textQodTitle.setTextColor(Color.WHITE)
+                textVideoTitle.setTextColor(Color.WHITE)
+
                 btnToggleTheme.text = "☀️ Açık"
-                Toast.makeText(this, "Koyu tema aktif", Toast.LENGTH_SHORT).show()
             } else {
-                // Açık Tema (Yumuşak Beyaz/Gri)
+                // AÇIK TEMA
                 mainScrollView.setBackgroundColor(Color.parseColor("#F0F2F5"))
+                val lightCard = Color.WHITE
+                topBarCard.setCardBackgroundColor(lightCard)
+                cardVerified.setCardBackgroundColor(lightCard)
+                cardQod.setCardBackgroundColor(lightCard)
+                cardVideo.setCardBackgroundColor(lightCard)
+
+                // Yazılar Siyah
+                textOpenGw.setTextColor(Color.BLACK)
+                textQodTitle.setTextColor(Color.BLACK)
+                textVideoTitle.setTextColor(Color.BLACK)
+
                 btnToggleTheme.text = "🌙 Koyu"
-                Toast.makeText(this, "Açık tema aktif", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // QoD Aç/Kapa (Toggle) Mantığı
+        // QoD Mantığı
         btnEnableQod.setOnClickListener {
             isQodEnabled = !isQodEnabled
-
             if (isQodEnabled) {
                 textQodStatus.text = "Status: REQUESTED | Süre: 60s"
                 btnEnableQod.text = "Quality-on-Demand'i Kapat"
                 btnEnableQod.setBackgroundColor(Color.parseColor("#ED4245"))
-
                 textVideoQuality.text = "Kalite: 1080p"
                 textVideoQuality.setBackgroundColor(Color.parseColor("#23A55A"))
-                Toast.makeText(this, "QoD Oturumu Başlatıldı (1080p)", Toast.LENGTH_SHORT).show()
             } else {
                 textQodStatus.text = "Status: KAPALI | Süre: 0s"
                 btnEnableQod.text = "Quality-on-Demand'i Aç"
                 btnEnableQod.setBackgroundColor(Color.parseColor("#5865F2"))
-
                 textVideoQuality.text = "Kalite: 240p"
                 textVideoQuality.setBackgroundColor(Color.parseColor("#ED4245"))
-                Toast.makeText(this, "QoD Oturumu Sonlandırıldı (240p)", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Teknofest Start - Videoyu Oynat
+        // VİDEO OYNATMA (Gömülü Video - İnternetsiz Garanti Çözüm)
         btnStartVideo.setOnClickListener {
             try {
-                val videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                val uri = Uri.parse(videoUrl)
+                // R.raw.test_video kısmındaki "test_video" senin raw klasörüne attığın videonun adıdır.
+                // Eğer videonun adını farkı yaptıysan burayı ona göre değiştir.
+                val videoPath = "android.resource://" + packageName + "/" + R.raw.test_video
+                val uri = Uri.parse(videoPath)
 
                 videoView.setVideoURI(uri)
+
+                // Oynatıcı kontrollerini ekliyoruz
+                val mediaController = android.widget.MediaController(this)
+                mediaController.setAnchorView(videoView)
+                videoView.setMediaController(mediaController)
+
                 videoView.setOnPreparedListener { mediaPlayer ->
                     mediaPlayer.isLooping = true
                     videoView.start()
+                    Toast.makeText(this, "Lokal video başarıyla başlatıldı!", Toast.LENGTH_SHORT).show()
+                }
+
+                videoView.setOnErrorListener { _, what, extra ->
+                    Toast.makeText(this, "Video oynatılamadı (Kod: $what)", Toast.LENGTH_LONG).show()
+                    true
                 }
 
                 btnUploadVideo.visibility = View.VISIBLE
-                Toast.makeText(this, "Canlı video akışı başlatıldı!", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "Video oynatılamadı.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Oynatma hatası: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             }
         }
 
-        // Upload Butonu - Sonuç Ekranına Geçiş
+        // Result Ekranına Geçiş ve Temayı Taşıma
         btnUploadVideo.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            // isDarkMode değişkeninin durumunu (true veya false) diğer ekrana gönderiyoruz
             intent.putExtra("isDarkMode", isDarkMode)
-
-            Toast.makeText(this, "Video yüklendi. AI Result sekmesine geçiliyor...", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
     }
