@@ -33,7 +33,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="🌐 OpenGW"
+                    android:text=" OpenGW"
                     android:textStyle="bold"
                     android:textSize="13sp"
                     android:textColor="#FFFFFF"/>
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✅ Verified (Doğrulandı)"
+                    android:text="🟢 Sistem Bağlantısı Aktif"
                     android:textColor="#23A55A"
                     android:textStyle="bold"
                     android:layout_marginBottom="6dp"/>
@@ -111,7 +111,7 @@
                     android:id="@+id/textQodTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⚡ Quality-on-Demand (QoD)"
+                    android:text="Quality-on-Demand (QoD)"
                     android:textStyle="bold"
                     android:textSize="15sp"
                     android:textColor="#FFFFFF"
@@ -152,7 +152,7 @@
                     android:id="@+id/textVideoTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🎥 Teknofest Video Akışı"
+                    android:text="Otoyol İzleme Kamerası (Kavşak-1)"
                     android:textStyle="bold"
                     android:textSize="15sp"
                     android:textColor="#FFFFFF"
@@ -189,7 +189,7 @@
                     android:id="@+id/btnStartVideo"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:text="Teknofest Start"
+                    android:text="▶️ Canlı Yayına Bağlan"
                     android:backgroundTint="#23A55A"
                     android:textColor="#FFFFFF"
                     android:layout_marginBottom="8dp"/>
@@ -198,7 +198,7 @@
                     android:id="@+id/btnUploadVideo"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:text="Upload Video to Backend"
+                    android:text="Görüntüyü Yapay Zeka Sunucusuna Gönder"
                     android:visibility="gone"
                     android:backgroundTint="#FEE75C"
                     android:textColor="#111214"/>
